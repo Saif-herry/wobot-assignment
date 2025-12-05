@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { apiService } from "../services/api";
 import "./Table.css";
+import { MdCheckBoxOutlineBlank } from "react-icons/md";
+import { MdCheckBox } from "react-icons/md"; // filled version (for active)
 
 function TableComponent() {
   const [cameras, setCameras] = useState([]);
@@ -8,7 +10,8 @@ function TableComponent() {
   const [filteredCameras, setFilteredCameras] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [updatingStatus, setUpdatingStatus] = useState({});
+  const [checked, setChecked] = useState(false);
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -81,22 +84,43 @@ function TableComponent() {
   const totalPages = Math.ceil(filteredCameras.length / itemsPerPage);
 
   // Handle status update
-  const handleStatusUpdate = async (id, newStatus) => {
+  // Handle status update via checkbox click
+  const handleCheckboxClick = async (camera) => {
+    const newStatus = camera.status === "Active" ? "Inactive" : "Active";
+
+    // Show loading for this specific camera
+    setUpdatingStatus((prev) => ({ ...prev, [camera.id]: true }));
+
     try {
-      await apiService.updateCameraStatus(id, newStatus);
+      // Call the update status API
+      await apiService.updateCameraStatus(camera.id, newStatus);
 
       // Update local state
       setCameras((prevCameras) =>
-        prevCameras.map((camera) =>
-          camera.id === id ? { ...camera, status: newStatus } : camera
+        prevCameras.map((prevCamera) =>
+          prevCamera.id === camera.id
+            ? {
+                ...prevCamera,
+                status: newStatus,
+                // Also update current_status if it exists in your API
+                ...(prevCamera.current_status && {
+                  current_status: newStatus === "Active" ? "Online" : "Offline",
+                }),
+              }
+            : prevCamera
         )
       );
+
+      // Show success message
+      console.log(`Successfully updated ${camera.name} to ${newStatus}`);
     } catch (err) {
       console.error("Failed to update status:", err);
-      alert("Failed to update camera status");
+      alert(`Failed to update ${camera.name} status`);
+    } finally {
+      // Remove loading state
+      setUpdatingStatus((prev) => ({ ...prev, [camera.id]: false }));
     }
   };
-
   // Handle delete
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this camera?")) {
@@ -252,16 +276,23 @@ function TableComponent() {
             <div
               style={{
                 width: "2%",
-                border: "1px solid red",
                 height: "100%",
                 position: "absolute",
                 left: 8,
-                top: "0",
+                top: 0,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
               }}
+              onClick={() => setChecked((prev) => !prev)} // toggle state
             >
-              ff
+              {checked ? (
+                <MdCheckBox size={22} color="#4caf50" />
+              ) : (
+                <MdCheckBoxOutlineBlank size={22} color="#999" />
+              )}
             </div>
-
             <div className="table-header" style={{ marginLeft: "25px" }}>
               {headers.map((title) => (
                 <div key={title} className="header-item">
@@ -278,7 +309,11 @@ function TableComponent() {
               </div>
             ) : (
               currentItems.map((camera) => {
-                console.log("camera--vkdk--", camera?.status);
+                console.log(
+                  "camera--health--",
+                  camera.health?.cloud,
+                  camera.health?.device
+                );
                 return (
                   <div key={camera.id} className="table-row">
                     <div
@@ -289,41 +324,139 @@ function TableComponent() {
                       <div
                         style={{
                           width: "15%",
-                          height: "100%", // parent must have height
+                          height: "100%",
                           position: "absolute",
                           left: 1,
                           top: 0,
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleCheckboxClick(camera)}
+                        title={`Toggle status: ${
+                          camera.status === "Active" ? "Deactivate" : "Activate"
+                        }`}
+                      >
+                        {updatingStatus[camera.id] ? (
+                          <div className="loading-spinner"></div>
+                        ) : camera.status === "Active" ? (
+                          <MdCheckBox size={22} color="#4caf50" />
+                        ) : (
+                          <MdCheckBoxOutlineBlank size={22} color="#b0b0b0" />
+                        )}
+                      </div>
+
+                      <div
+                        style={{
+                          marginLeft: "35px",
+                          display: "flex",
+                          // justifyContent: "flex-start",
+                          alignItems: "center",
+                        }}
+                      >
+                        {/* Status Circle */}
+                        <div
+                          style={{
+                            width: "10px",
+                            height: "10px",
+                            borderRadius: "50%",
+                            backgroundColor:
+                              camera.current_status === "Online"
+                                ? "green"
+                                : "red",
+                          }}
+                        />
+
+                        {/* Name */}
+                        <div className="row-item name-item">{camera.name}</div>
+
+                        <div
+                          style={{
+                            width: "14px",
+                            height: "14px",
+                            borderRadius: "50%",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          {camera.hasWarning === true ? (
+                            <img
+                              src="/warning.png"
+                              alt="warning"
+                              style={{ width: "14px", height: "14px" }}
+                            />
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    {/* <div>{camera.health?.device}</div> */}
+                    <div
+                      className="row-item"
+                      style={{ display: "flex", gap: "6px" }}
+                    >
+                      {/* CLOUD STATUS */}
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "4px",
                         }}
                       >
                         <img
-                          src="/checkbox.png"
-                          alt="checkbox icon"
-                          style={{
-                            width: "18px",
-                            height: "18px",
-                            objectFit: "contain",
-                          }}
+                          src="/Cloud.png"
+                          alt="cloud"
+                          style={{ width: "14px", height: "14px" }}
                         />
+                        <div
+                          className={`health-indicator ${camera.health.cloud}`}
+                        >
+                          <div
+                            style={{
+                              fontSize: "8px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            {camera.health?.cloud}
+                          </div>
+                        </div>
                       </div>
 
+                      {/* DEVICE STATUS */}
                       <div
-                        className="row-item name-item"
-                        style={{ marginLeft: "30px" }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "4px",
+                        }}
                       >
-                        {camera.name}
+                        <img
+                          src="/Edge.png"
+                          alt="Edge"
+                          style={{ width: "14px", height: "14px" }}
+                        />
+                        <div
+                          className={`health-indicator ${camera.health.device}`}
+                        >
+                          <div
+                            style={{
+                              fontSize: "8px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            {camera.health?.device}
+                          </div>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="row-item">
-                      <div
-                        className={`health-indicator ${
-                          camera.health || "good"
-                        }`}
-                      ></div>
-                    </div>
                     <div className="row-item name-item">{camera.location}</div>
                     <div className="row-item name-item">
                       {camera.recorder || "N/A"}
