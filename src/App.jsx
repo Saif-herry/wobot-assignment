@@ -1,10 +1,10 @@
 import "./App.css";
-import TableComponent from "./components/TableComponent";
+import CameraTable from "./components/CameraTable";
 
 function App() {
   return (
     <>
-      <TableComponent />
+      <CameraTable />
     </>
   );
 }

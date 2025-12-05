@@ -74,6 +74,79 @@ body {
   background-color: #2980b9;
 }
 
+.table-header-section {
+  position: relative;
+}
+
+.checkbox-container {
+  width: 15%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Camera name + status circle */
+.camera-name-container {
+  margin-left: 35px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Health indicator section */
+.health-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-margin {
+  margin-left: 25px;
+}
+
+/* --- HEADER SECTION --- */
+.header-container {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.header-logo {
+  height: 30px;
+  object-fit: cover;
+}
+
+/* --- TITLE + SEARCH SECTION --- */
+.title-search-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title-heading {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.title-subtext {
+  font-size: 11px;
+  color: #555;
+}
+
 /* Main table container */
 .table-container {
   width: 100%;
@@ -108,10 +181,14 @@ body {
   min-width: 200px;
   max-width: 250px;
 }
+.search-box {
+  position: relative; /* 👈 important to position icon inside */
+  width: 220px; /* adjust width as you like */
+}
 
 .search-input {
   width: 100%;
-  padding: 10px 16px 10px 15px;
+  padding: 10px 36px 10px 12px; /* 👈 leave space on the right for the icon */
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 12px;
@@ -130,8 +207,13 @@ body {
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
+  width: 14px; /* 👈 small and tidy size */
+  height: 14px;
   color: #999;
+  opacity: 0.8;
+  pointer-events: none; /* 👈 allows clicks to go through to input */
 }
+
 .select-wrapper {
   position: relative;
   min-width: 170px; /* adjust to your UI */
@@ -456,55 +538,34 @@ body {
   }
 }
 
+/* === Small screens (≤768px) === */
 @media (max-width: 768px) {
-  .table-wrapper {
-    border: none;
-    border-radius: 0;
+  .controls-container {
+    flex-direction: column; /* stack filters vertically */
+    align-items: stretch; /* full width alignment */
+    padding: 10px;
+    gap: 10px; /* smaller space between filters */
   }
 
-  .table-header {
-    display: none;
-  }
-
-  .table-body {
-    max-height: none;
-  }
-
-  .table-row {
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    margin-bottom: 16px;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-  }
-
-  .row-item {
+  .filter-controls {
+    flex-direction: column; /* stack dropdowns */
+    gap: 10px;
     width: 100%;
-    padding: 8px 0;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #f0f0f0;
   }
 
-  .row-item:last-child {
-    border-bottom: none;
+  .select-wrapper {
+    width: 100%; /* full width selects */
+    min-width: unset;
+    max-width: unset;
   }
 
-  .row-item::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: #666;
-    margin-right: 16px;
-    min-width: 120px;
+  .filter-select {
+    width: 100%;
+    font-size: 15px;
+    padding: 10px 16px 10px 38px; /* maintain icon padding */
   }
 
-  .table-row .row-item {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .actions {
-    justify-content: flex-start;
+  .select-icon {
+    left: 12px;
   }
 }
