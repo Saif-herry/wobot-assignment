@@ -31,7 +31,7 @@ export const TableHeaderSection = ({ checked, setChecked }) => {
       </div>
 
       {/* Table Headers */}
-      <div className="table-header header-margin">
+      <div className="table-header header-margin scrollable-header">
         {tableHeaders.map((title) => (
           <div key={title} className="header-item">
             {title}
