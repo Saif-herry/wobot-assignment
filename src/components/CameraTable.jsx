@@ -211,7 +211,7 @@ function CameraTable() {
 
   /* --------------------------- Main Render --------------------------- */
   return (
-    <div style={{ padding: "20px 40px", height: "100%" }}>
+    <div className="camera-table-container">
       <Header />
 
       <TitleAndSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
