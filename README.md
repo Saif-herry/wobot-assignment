@@ -1,6 +1,5 @@
-# React + Vite
+# 📸 Camera Table Component
 
-📸 Camera Table Component
 
 A React component that displays, filters, paginates, and manages a list of security cameras. It supports search, filtering by location and status, pagination, and status toggling, with optional integration to an API service for fetching and updating data.
 
