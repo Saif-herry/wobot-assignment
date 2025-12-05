@@ -58,6 +58,9 @@ npm run build
 
 # 🏗️ Project Structure
 
+
+
+
 src/
 ├── components/
 │   ├── CameraTable.jsx              # Main table component
@@ -68,6 +71,9 @@ src/
 ├── styles/
 │   └── Table.css                    # All styles
 └── App.js                           # Root component
+
+
+
 
 
 # Modular Component Breakdown
