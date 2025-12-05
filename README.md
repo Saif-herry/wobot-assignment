@@ -7,7 +7,7 @@ A React component that displays, filters, paginates, and manages a list of secur
 🔗 Live Application: [(https://wobot-assignment-black.vercel.app/)]
 🔗 GitHub Repository: [https://github.com/Saif-herry/wobot-assignment]
 
-📋 Features Implemented
+# 📋 Features Implemented
 ✅ Core Requirements (As per assignment)
 📊 Data Integration: Real API integration with CORS proxy support
 
@@ -23,7 +23,7 @@ A React component that displays, filters, paginates, and manages a list of secur
 
 🎨 Design Matching: UI matches provided screenshot
 
-✅ Additional Features
+# ✅ Additional Features
 Modular Architecture: Clean separation with reusable components
 
 Error Handling: Graceful error states with retry functionality
