@@ -5,6 +5,7 @@ A React component that displays, filters, paginates, and manages a list of secur
 
 # 🎯 Live Demo
 🔗 Live Application: [(https://wobot-assignment-black.vercel.app/)]
+
 🔗 GitHub Repository: [https://github.com/Saif-herry/wobot-assignment]
 
 # 📋 Features Implemented
@@ -36,13 +37,13 @@ Real API Calls: Proper API integration with fallback
 
 Performance Optimized: Efficient rendering and state management
 
-🚀 Quick Start
+# 🚀 Quick Start
 Prerequisites
 Node.js 16.x or higher
 
 npm or yarn package manager
 
-Installation
+# Installation
 Clone and install
 
 1). git clone <your-repo-url>
@@ -55,7 +56,8 @@ npm run dev
 3). Build for production
 npm run build
 
-🏗️ Project Structure
+# 🏗️ Project Structure
+
 src/
 ├── components/
 │   ├── CameraTable.jsx              # Main table component
@@ -68,7 +70,8 @@ src/
 └── App.js                           # Root component
 
 
-Modular Component Breakdown
+# Modular Component Breakdown
+
 CameraTable.jsx - Main container with:
 
 State management (cameras, filters, pagination)
@@ -91,7 +94,8 @@ TableFooter: Pagination controls
 
 
 
-🔧 API Integration
+# 🔧 API Integration
+
 API Service (services/api.js)
 
 const API_BASE_URL = "https://api-app-staging.wobot.ai/app/v1";
@@ -99,7 +103,8 @@ const AUTH_TOKEN = "4ApVMin5sTxeW7GQ5VWeWiy";
 
 
 
-CORS Handling
+# CORS Handling
+
 Since the API has CORS restrictions, the application uses:
 
 CORS Anywhere proxy for development
@@ -123,7 +128,8 @@ export const apiService = {
 };
 
 
-Data Flow
+# Data Flow
+
 Fetch Data: useEffect calls apiService.getCameras()
 
 Process Data: Extract unique locations for filters
@@ -135,7 +141,8 @@ Update Status: Checkbox click calls apiService.updateCameraStatus()
 Pagination: Slice data for current page display
 
 
-🎨 Key Features Implementation
+# 🎨 Key Features Implementation
+
 1. Status Update System
    
 const toggleCameraStatus = async (camera) => {
@@ -181,7 +188,8 @@ Current position display
 
 
 
-📱 UI Components
+# 📱 UI Components
+
  Header Section
 . Wobot Intelligence logo
 . Centered branding
@@ -203,7 +211,8 @@ Footer Section
 . Page navigation controls
 . Current position indicator
 
-🎯 State Management
+# 🎯 State Management
+
 // Camera Data
 const [cameras, setCameras] = useState([]);
 const [filteredCameras, setFilteredCameras] = useState([]);
@@ -222,7 +231,8 @@ const [locationFilter, setLocationFilter] = useState("all");
 const [currentPage, setCurrentPage] = useState(1);
 const [itemsPerPage, setItemsPerPage] = useState(10);
 
-🛠️ Development Scripts
+# 🛠️ Development Scripts
+
 {
   "scripts": {
     "start": "react-scripts start",
@@ -232,7 +242,7 @@ const [itemsPerPage, setItemsPerPage] = useState(10);
   }
 }
 
-🌐 Deployment
+# 🌐 Deployment
 
 Vercel
 npm install -g vercel
@@ -246,7 +256,8 @@ Add scripts to package.json
 Run: npm run deploy
 
 
-📄 API Response Structure
+# 📄 API Response Structure
+
 The application expects data in this format:
 
 {
@@ -265,13 +276,14 @@ The application expects data in this format:
   "hasWarning": boolean
 }
 
-🔒 Environment Variables
+# 🔒 Environment Variables
+
 Create .env file:
 
 REACT_APP_API_BASE_URL=https://api-app-staging.wobot.ai/app/v1
 REACT_APP_AUTH_TOKEN=4ApVMin5sTxeW7GQ5VWeWiy
 
-🧪 Testing Features
+# 🧪 Testing Features
 
 Manual Test Checklist
 Load cameras successfully
@@ -295,13 +307,15 @@ Loading states display
 Error states handle gracefully
 
 
-📱 Responsive Design
+# 📱 Responsive Design
+
 Breakpoint	Layout
 > 1200px	Full table with all columns
 768px-1200px	Compact table layout
 < 768px	Stacked mobile layout
 
-🚀 Performance Optimizations
+# 🚀 Performance Optimizations
+
 Efficient Filtering: Memoized filter calculations
 
 Optimistic Updates: Immediate UI feedback
@@ -312,10 +326,12 @@ CSS Optimization: Minimal reflows and repaints
 
 
 
-📄 License
+# 📄 License
+
 MIT License - see LICENSE file for details.
 
-👤 Author
+# 👤 Author
+
 Mohammad Saif
 
 GitHub: Saif-herry
@@ -323,7 +339,8 @@ GitHub: Saif-herry
 Email: saifsami321md@gmail.com
 
 
-🙏 Acknowledgments
+# 🙏 Acknowledgments
+
 Wobot Intelligence for the assignment opportunity
 
 React team for the excellent framework
@@ -333,7 +350,7 @@ Create React App for the development setup
 
 
 
-Assignment Requirements Checklist
+# Assignment Requirements Checklist
 
 Data Integration with API ✅
 
