@@ -5,6 +5,9 @@
 A React component that displays, filters, paginates, and manages a list of security cameras. It supports search, filtering by location and status, pagination, and status toggling, with integration to an API service for fetching and updating data.
 
 # 🎯 Live Demo
+
+🔗 Video Clip of the Project: [https://www.awesomescreenshot.com/video/47177354?key=8dba8e8489311a6bd6965c183408701e]
+
 🔗 Live Application: [(https://wobot-assignment-black.vercel.app/)]
 
 🔗 GitHub Repository: [https://github.com/Saif-herry/wobot-assignment]
